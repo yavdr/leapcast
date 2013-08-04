@@ -79,5 +79,5 @@ class ChannelFactory(tornado.web.RequestHandler):
         ## TODO: defer request until receiver connects
         self.finish(
             '{"URL":"ws://%s/session/%s?%s","pingInterval":3}' % (
-            self.request.host, app, self.app.get_apps_count())
+            self.request.host, app, self.app.proxy().get_apps_count())
         )

@@ -27,6 +27,7 @@ setup(
         'setuptools',
         'twisted',
         'tornado',
+        'pykka'
     ],
     entry_points={
         'console_scripts': [
