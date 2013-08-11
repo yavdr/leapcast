@@ -1,0 +1,72 @@
+Index: leapcast-0.0.1~git201308070833/leapcast/environment.py
+===================================================================
+--- leapcast-0.0.1~git201308070833.orig/leapcast/environment.py	2013-08-08 21:20:57.000000000 +0200
++++ leapcast-0.0.1~git201308070833/leapcast/environment.py	2013-08-08 21:52:58.112068111 +0200
+@@ -2,6 +2,7 @@
+ import argparse
+ import logging
+ import uuid
++import os
+ 
+ logger = logging.getLogger('Environment')
+ 
+@@ -16,6 +17,8 @@
+     interface = None
+     uuid = None
+     verbosity = logging.INFO
++    prescript = None
++    postscript = None
+ 
+ 
+ def parse_cmd():
+@@ -27,6 +30,8 @@
+     parser.add_argument('--chrome', help='Path to Google Chrome executable')
+     parser.add_argument('--fullscreen', action='store_true',
+                         default=False, help='Start in full-screen mode')
++    parser.add_argument('--prescript', help='Script that is called before chrome')
++    parser.add_argument('--postscript', help='Script that is called after chromehas stopped')
+     args = parser.parse_args()
+ 
+     if args.name:
+@@ -47,6 +52,20 @@
+     if args.d:
+         Environment.verbosity = logging.DEBUG
+ 
++    if args.prescript:
++        if os.access(args.prescript, os.X_OK):
++            Environment.prescript = args.prescript
++            logger.debug('prescript path is %s' % args.prescript)
++        else:
++            logger.debug('prescript path %s is not executable, ignoring' % args.prescript)
++
++    if args.postscript:
++        if os.access(args.postscript, os.X_OK):
++            Environment.postscript = args.postscript
++            logger.debug('postscript path is %s' % args.postscript)
++        else:
++            logger.debug('postscript path %s is not executable, ignoring' % args.postscript)
++
+     generate_uuid()
+ 
+ 
+Index: leapcast-0.0.1~git201308070833/leapcast/services/leap.py
+===================================================================
+--- leapcast-0.0.1~git201308070833.orig/leapcast/services/leap.py	2013-08-08 21:20:57.000000000 +0200
++++ leapcast-0.0.1~git201308070833/leapcast/services/leap.py	2013-08-08 21:29:59.300044097 +0200
+@@ -26,12 +26,16 @@
+         args.extend(shlex.split(command_line.encode('utf8')))
+         self.tmpdir = tempfile.mkdtemp(prefix='leapcast-')
+         args.append('--user-data-dir=%s' % self.tmpdir)
++        if Environment.prescript:
++	    subprocess.call([Environment.prescript])
+         self.pid = subprocess.Popen(args)
+ 
+     def destroy(self):
+         self.pid.terminate()
+         self.pid.wait()
+         shutil.rmtree(self.tmpdir)
++        if Environment.postscript:
++	    subprocess.call([Environment.postscript])
+ 
+     def is_running(self):
+         return self.pid.poll() is None

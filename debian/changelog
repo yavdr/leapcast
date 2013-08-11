@@ -1,0 +1,17 @@
+leapcast (0.0.1~git201308070833-3yavdr1) precise; urgency=medium
+
+  * added prescript postscript arguments
+
+ -- Gerald Dachs <gda@dachsweb.de>  Thu, 08 Aug 2013 21:19:42 +0200
+
+leapcast (0.0.1~git201308070833-2yavdr1) precise; urgency=medium
+
+  * changed port from 8008 to 8009
+
+ -- Gerald Dachs <gda@dachsweb.de>  Wed, 07 Aug 2013 15:34:39 +0200
+
+leapcast (0.0.1~git201308070833-1yavdr1) precise; urgency=medium
+
+  * first package
+
+ -- Gerald Dachs <gda@dachsweb.de>  Wed, 07 Aug 2013 08:33:32 +0200

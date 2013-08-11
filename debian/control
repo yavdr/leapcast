@@ -1,0 +1,31 @@
+Source: leapcast
+Maintainer: Gerald Dachs <gda@dachsweb.de>
+Section: python
+Priority: optional
+Build-Depends: python-setuptools (>= 0.6b3), python (>= 2.6.6-3), debhelper (>= 7.4.3)
+Standards-Version: 3.9.1
+
+Package: leapcast
+Architecture: all
+Depends: ${misc:Depends}, ${python:Depends}
+Description: ChromeCast functionality for any device
+ # leapcast
+ ![Google Music](http://screencloud.net//img/screenshots/3c17671ad386247d7dbd2f7395c4df77.png "Google Music")
+ .
+ Simple ChromeCast emulation app.
+ .
+ Working:
+ .
+  - Discovery (DIAL protocol http://www.dial-multiscreen.org/)
+  - Youtube
+  - Google Music
+  - TicTacToe
+ .
+ On real device enabled apps are fetched from https://clients3.google.com/cast/chromecast/device/config
+ .
+ .
+ ## How to install
+ .
+ ### Simple
+ .
+ Clone this directory, then run ```python setup.py develop```

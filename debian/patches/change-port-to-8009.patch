@@ -1,0 +1,39 @@
+Index: leapcast-0.0.1~git201308070833/leapcast/__main__.py
+===================================================================
+--- leapcast-0.0.1~git201308070833.orig/leapcast/__main__.py	2013-08-07 08:29:54.000000000 +0200
++++ leapcast-0.0.1~git201308070833/leapcast/__main__.py	2013-08-07 15:33:24.984089698 +0200
+@@ -41,7 +41,7 @@
+             (r"/session/([^\/]+)", ApplicationChannel),
+             (r"/system/control", CastPlatform),
+         ])
+-        self.application.listen(8008)
++        self.application.listen(8009)
+         tornado.ioloop.IOLoop.instance().start()
+ 
+     def start(self):
+Index: leapcast-0.0.1~git201308070833/leapcast/services/ssdp.py
+===================================================================
+--- leapcast-0.0.1~git201308070833.orig/leapcast/services/ssdp.py	2013-08-07 08:29:54.000000000 +0200
++++ leapcast-0.0.1~git201308070833/leapcast/services/ssdp.py	2013-08-07 15:32:42.400088955 +0200
+@@ -13,7 +13,7 @@
+     SSDP_PORT = 1900
+     header = '''\
+     HTTP/1.1 200 OK\r
+-    LOCATION: http://$ip:8008/ssdp/device-desc.xml\r
++    LOCATION: http://$ip:8009/ssdp/device-desc.xml\r
+     CACHE-CONTROL: max-age=1800\r
+     CONFIGID.UPNP.ORG: 7337\r
+     BOOTID.UPNP.ORG: 7337\r
+Index: leapcast-0.0.1~git201308070833/leapcast/services/websocket.py
+===================================================================
+--- leapcast-0.0.1~git201308070833.orig/leapcast/services/websocket.py	2013-08-07 08:29:54.000000000 +0200
++++ leapcast-0.0.1~git201308070833/leapcast/services/websocket.py	2013-08-07 15:33:07.280089394 +0200
+@@ -105,7 +105,7 @@
+ 
+     def new_channel(self):
+ 
+-        ws = "ws://localhost:8008/receiver/%s" % self.app.info["name"]
++        ws = "ws://localhost:8009/receiver/%s" % self.app.info["name"]
+         self.reply(
+             {
+                 "type": "NEWCHANNEL",
