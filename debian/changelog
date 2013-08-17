@@ -1,3 +1,9 @@
+leapcast (0.0.1~git201308070833-4yavdr1) precise; urgency=medium
+
+  * removed prescript postscript arguments
+
+ -- Gerald Dachs <gda@dachsweb.de>  Sat, 17 Aug 2013 20:27:54 +0200
+
 leapcast (0.0.1~git201308070833-3yavdr1) precise; urgency=medium
 
   * added prescript postscript arguments
